@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+<title>Home – AMP Productions</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0d0d0d;--charcoal:#1a1a1a;--gold:#d4a017;--gold-light:#f0c040;
+  --white:#f5f0e8;--muted:#a89f8c;--red:#e63b2e;--orange:#f07020;
+  --yellow:#f0c040;--green:#3db54a;--blue:#1e6fbf;--purple:#7b3fbf;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Montserrat',sans-serif;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(212,160,23,0.25);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;}
+.nav-logo{text-decoration:none;display:flex;align-items:center;}
+.nav-logo img{height:44px;width:auto;}
+.nav-cta{background:var(--gold);color:var(--black);padding:8px 20px;border-radius:2px;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background 0.2s;flex-shrink:0;}
+.nav-cta:hover{background:var(--gold-light);}
+.hamburger{background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;gap:5px;flex-shrink:0;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--gold);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-menu{position:fixed;top:64px;left:0;right:0;background:rgba(10,10,10,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,160,23,0.25);padding:0;max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.35s ease;z-index:97;}
+.nav-menu.open{max-height:500px;padding:1rem 0;}
+.nav-menu ul{list-style:none;display:flex;flex-direction:column;}
+.nav-menu ul li a{display:block;padding:0.9rem 2rem;font-size:0.82rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid rgba(212,160,23,0.08);transition:color 0.2s,background 0.2s;}
+.nav-menu ul li a:hover{color:var(--gold);background:rgba(212,160,23,0.05);}
+.sponsor-ticker-wrap{background:linear-gradient(to right,#1a1000,#111,#1a1000);border-top:2px solid rgba(212,160,23,0.5);border-bottom:2px solid rgba(212,160,23,0.5);height:48px;overflow:hidden;position:fixed;top:64px;left:0;right:0;z-index:98;}
+.sponsor-ticker-inner{display:flex;align-items:center;height:100%;overflow:hidden;}
+.ticker-label{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;padding:0 1.5rem;white-space:nowrap;border-right:2px solid rgba(212,160,23,0.4);flex-shrink:0;background:rgba(212,160,23,0.08);}
+.ticker-track-wrap{flex:1;overflow:hidden;}
+.ticker-track{display:flex;align-items:center;animation:ticker-scroll 30s linear infinite;white-space:nowrap;}
+.ticker-track:hover{animation-play-state:paused;}
+.ticker-item{font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:#d4c9a8;padding:0 2.5rem;border-right:1px solid rgba(212,160,23,0.15);flex-shrink:0;}
+.ticker-item .tier-icon{color:var(--gold);margin-right:0.5rem;}
+@keyframes ticker-scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+@media(max-width:760px){.ticker-track{animation-duration:6s;}.ticker-label{display:none;}}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-label{font-size:0.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;font-weight:600;}
+h2.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:2px;color:var(--white);margin-bottom:2rem;line-height:1;}
+.rainbow-rule{width:60px;height:3px;background:linear-gradient(to right,var(--red),var(--orange),var(--yellow),var(--green),var(--blue),var(--purple));margin:1rem 0 2rem;border-radius:2px;}
+.btn-primary{background:var(--gold);color:var(--black);padding:14px 32px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;border-radius:2px;transition:background 0.2s;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);}
+.btn-outline{border:1px solid var(--gold);color:var(--gold);padding:14px 32px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all 0.2s;display:inline-block;}
+.btn-outline:hover{background:rgba(212,160,23,0.1);}
+.page-hero{padding:10rem 2rem 5rem;text-align:center;background:radial-gradient(ellipse at 50% 60%, #1a1200 0%, #0d0d0d 70%);position:relative;}
+.page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--red),var(--orange),var(--yellow),var(--green),var(--blue),var(--purple));}
+.page-label{font-size:0.8rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;font-weight:600;}
+h1.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,6rem);letter-spacing:3px;color:var(--white);line-height:1;}
+.page-tagline{font-family:'Lora',serif;font-style:italic;font-size:1.15rem;color:var(--muted);margin:1.2rem auto 0;max-width:600px;line-height:1.7;}
+.counter-section{background:#0a0a0a;border-top:1px solid rgba(212,160,23,0.15);border-bottom:1px solid rgba(212,160,23,0.15);padding:1.5rem 2rem;text-align:center;}
+.counter-inner{display:inline-flex;align-items:center;gap:1.5rem;flex-wrap:wrap;justify-content:center;}
+.counter-label{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;}
+.counter-digit-wrap{display:flex;gap:4px;}
+.counter-digit{background:#1a1a1a;border:1px solid rgba(212,160,23,0.3);color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:2rem;width:36px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:3px;}
+.counter-since{font-size:0.65rem;letter-spacing:1px;color:rgba(168,159,140,0.5);text-transform:uppercase;}
+footer{background:#080808;border-top:1px solid rgba(212,160,23,0.15);padding:3rem 2rem;text-align:center;}
+.footer-eq{display:flex;gap:3px;align-items:flex-end;justify-content:center;height:20px;margin-bottom:1.5rem;}
+.footer-eq-bar{width:6px;border-radius:1px 1px 0 0;}
+.footer-eq-bar:nth-child(1){background:var(--red);height:10px;}
+.footer-eq-bar:nth-child(2){background:var(--orange);height:18px;}
+.footer-eq-bar:nth-child(3){background:var(--yellow);height:14px;}
+.footer-eq-bar:nth-child(4){background:var(--green);height:20px;}
+.footer-eq-bar:nth-child(5){background:var(--blue);height:12px;}
+.footer-eq-bar:nth-child(6){background:var(--purple);height:16px;}
+.footer-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:var(--gold);margin-bottom:0.25rem;}
+.footer-tagline{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;}
+.footer-links{display:flex;gap:2rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap;}
+.footer-links a{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-legal{font-size:0.72rem;color:#4a4540;}
+@media(max-width:760px){nav{padding:0 1.2rem;}}
+
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:10rem 2rem 4rem;background:radial-gradient(ellipse at 50% 60%, #1a1200 0%, #0d0d0d 70%);}
+.hero-logo{width:480px;max-width:90vw;height:auto;margin-bottom:-3rem;filter:drop-shadow(0 4px 24px rgba(212,160,23,0.3));}
+.eq-bars{display:flex;gap:4px;align-items:flex-end;justify-content:center;margin-bottom:1rem;height:40px;}
+.eq-bar{width:10px;border-radius:2px 2px 0 0;animation:eq-bounce 1.2s ease-in-out infinite alternate;}
+.eq-bar:nth-child(1){background:var(--red);height:30px;animation-delay:0s;}
+.eq-bar:nth-child(2){background:var(--orange);height:55px;animation-delay:0.1s;}
+.eq-bar:nth-child(3){background:var(--yellow);height:45px;animation-delay:0.2s;}
+.eq-bar:nth-child(4){background:var(--green);height:64px;animation-delay:0.15s;}
+.eq-bar:nth-child(5){background:var(--blue);height:40px;animation-delay:0.25s;}
+.eq-bar:nth-child(6){background:var(--purple);height:50px;animation-delay:0.05s;}
+.eq-bar:nth-child(7){background:var(--red);height:28px;animation-delay:0.3s;}
+@keyframes eq-bounce{0%{transform:scaleY(0.4);}100%{transform:scaleY(1);}}
+.hero-sub{font-size:0.8rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:600;}
+h1.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,7rem);line-height:0.95;letter-spacing:3px;color:var(--white);margin-bottom:0.5rem;}
+h1.hero-title span{color:var(--gold);}
+.hero-tagline{font-family:'Lora',serif;font-style:italic;font-size:1.2rem;color:var(--muted);margin:1.2rem 0 2.5rem;max-width:520px;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.hero-divider{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--red),var(--orange),var(--yellow),var(--green),var(--blue),var(--purple));}
+.hero-columns{display:grid;grid-template-columns:200px 1fr 200px;gap:1.5rem;align-items:center;width:100%;max-width:1200px;padding:0 1rem;}
+.hero-center{display:flex;flex-direction:column;align-items:center;text-align:center;}
+.hero-sponsor-panel{display:flex;flex-direction:column;align-items:center;gap:0.75rem;padding:1.2rem;border:1px solid rgba(212,160,23,0.2);background:rgba(0,0,0,0.4);position:relative;}
+.sponsor-panel-badge{font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 10px;position:absolute;top:-1px;left:50%;transform:translateX(-50%);white-space:nowrap;}
+.presenting-badge{background:linear-gradient(to right,var(--orange),var(--yellow));color:var(--black);}
+.gold-badge{background:var(--gold);color:var(--black);}
+.sponsor-panel-logo{width:100%;border:1px dashed rgba(212,160,23,0.2);padding:1rem 0.75rem;display:flex;flex-direction:column;align-items:center;gap:0.4rem;background:rgba(212,160,23,0.03);margin-top:0.75rem;}
+.gold-panel{padding:0.75rem;}
+.sponsor-panel-icon{font-size:2.2rem;opacity:0.2;}
+.sponsor-panel-name{font-size:0.78rem;color:rgba(212,160,23,0.35);font-style:italic;text-align:center;}
+.sponsor-panel-tier{font-size:0.6rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.15);}
+.sponsor-panel-cta{font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:rgba(212,160,23,0.5);text-decoration:none;font-weight:600;border-bottom:1px solid rgba(212,160,23,0.2);padding-bottom:1px;transition:color 0.2s;}
+.sponsor-panel-cta:hover{color:var(--gold);}
+@media(max-width:900px){
+  .hero-columns{grid-template-columns:1fr;}
+  .hero-sponsor-left{order:2;}.hero-center{order:1;}.hero-sponsor-right{order:3;}
+  .hero-sponsor-panel{flex-direction:row;flex-wrap:wrap;justify-content:center;}
+}
+/* QUICK LINKS */
+.quick-links{background:var(--charcoal);padding:4rem 2rem;}
+.quick-links-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;}
+.quick-link-card{border:1px solid rgba(212,160,23,0.2);padding:1.5rem;text-decoration:none;transition:border-color 0.2s,background 0.2s;display:flex;flex-direction:column;gap:0.5rem;}
+.quick-link-card:hover{border-color:var(--gold);background:rgba(212,160,23,0.04);}
+.quick-link-card::before{content:'';display:block;height:3px;background:linear-gradient(to right,var(--red),var(--orange),var(--yellow),var(--green),var(--blue),var(--purple));margin-bottom:0.5rem;}
+.quick-link-icon{font-size:1.8rem;}
+.quick-link-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:var(--gold);}
+.quick-link-desc{font-size:0.82rem;color:var(--muted);line-height:1.5;}
+.quick-link-arrow{font-size:0.75rem;color:rgba(212,160,23,0.4);margin-top:auto;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html"><img src="AMP_logo.png" alt="AMP Productions"/></a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="nav-cta" href="founding-partners.html">Become a Founding Member</a>
+</nav>
+<div class="nav-menu" id="navMenu">
+  <ul>
+    <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+    <li><a href="about.html" onclick="closeMenu()">About</a></li>
+    <li><a href="events.html" onclick="closeMenu()">Events</a></li>
+    <li><a href="gallery.html" onclick="closeMenu()">Gallery</a></li>
+    <li><a href="contact.html" onclick="closeMenu()">Contact</a></li>
+    <li><a href="sponsors.html" onclick="closeMenu()">Sponsors</a></li>
+    <li><a href="founding-partners.html" onclick="closeMenu()">Founding Members</a></li>
+    <li><a href="board.html" onclick="closeMenu()">Board of Directors</a></li>
+    <li><a href="https://www.zeffy.com/en-US/donation-form/become-a-founding-member-for-life" target="_blank" onclick="closeMenu()">Donate</a></li>
+  </ul>
+</div>
+<div class="sponsor-ticker-wrap">
+  <div class="sponsor-ticker-inner">
+    <div class="ticker-label">⭐ Our Sponsors</div>
+    <div class="ticker-track-wrap">
+      <div class="ticker-track">
+        <div class="ticker-item"><span class="tier-icon">🥁</span>Founding Donor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎶</span>Founding Sponsor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎵</span>Founding Partner — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎼</span>Founding Visionary — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎶</span>Harmony Sponsor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎵</span>Melody Sponsor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎹</span>Maestro Sponsor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎻</span>Virtuoso Sponsor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🥁</span>Founding Donor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎶</span>Founding Sponsor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎵</span>Founding Partner — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎼</span>Founding Visionary — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎶</span>Harmony Sponsor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎵</span>Melody Sponsor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎹</span>Maestro Sponsor — Your Name Here</div>
+        <div class="ticker-item"><span class="tier-icon">🎻</span>Virtuoso Sponsor — Your Name Here</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="hero">
+  <div class="hero-columns">
+    <div class="hero-sponsor-panel hero-sponsor-left">
+      <div class="sponsor-panel-badge presenting-badge">🎼 Symphony Circle</div>
+      <div class="sponsor-panel-logo">
+        <div class="sponsor-panel-icon">🏢</div>
+        <div class="sponsor-panel-name">Your Name Here</div>
+        <div class="sponsor-panel-tier">Symphony Circle — $50,000+</div>
+      </div>
+      <div class="sponsor-panel-logo" style="margin-top:0.75rem;">
+        <div class="sponsor-panel-icon" style="font-size:1.6rem;">🏛️</div>
+        <div class="sponsor-panel-name" style="font-size:0.8rem;">Your Name Here</div>
+        <div class="sponsor-panel-tier">Legacy — $25,000+</div>
+      </div>
+      <a href="https://www.zeffy.com/en-US/donation-form/become-a-founding-member-for-life" target="_blank" class="sponsor-panel-cta">Become a Founding Partner →</a>
+    </div>
+    <div class="hero-center">
+      <img src="AMP_logo.png" alt="AMP Productions" class="hero-logo"/>
+      <div class="eq-bars">
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+      </div>
+      <div class="hero-sub">Aid through Music and Philanthropy</div>
+      <h1 class="hero-title"><span>AMP</span><br>Productions</h1>
+      <p class="hero-tagline">Where music meets purpose — raising voices, raising lives.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="events.html">Upcoming Events</a>
+        <a class="btn-outline" href="https://www.zeffy.com/en-US/donation-form/become-a-founding-member-for-life" target="_blank">Support Our Mission</a>
+      </div>
+    </div>
+    <div class="hero-sponsor-panel hero-sponsor-right">
+      <div class="sponsor-panel-badge gold-badge">👏 Standing Ovation</div>
+      <div class="sponsor-panel-logo gold-panel">
+        <div class="sponsor-panel-icon" style="font-size:1.8rem;">🏢</div>
+        <div class="sponsor-panel-name" style="font-size:0.82rem;">Your Name Here</div>
+        <div class="sponsor-panel-tier">Standing Ovation — $10,000+</div>
+      </div>
+      <div class="sponsor-panel-logo gold-panel" style="margin-top:0.75rem;">
+        <div class="sponsor-panel-icon" style="font-size:1.6rem;">🎻</div>
+        <div class="sponsor-panel-name" style="font-size:0.82rem;">Your Name Here</div>
+        <div class="sponsor-panel-tier">Virtuoso — $5,000+</div>
+      </div>
+      <a href="https://www.zeffy.com/en-US/donation-form/become-a-founding-member-for-life" target="_blank" class="sponsor-panel-cta">Become a Sponsor →</a>
+    </div>
+  </div>
+  <div class="hero-divider"></div>
+</section>
+
+<div class="quick-links">
+  <div class="quick-links-inner">
+    <a href="about.html" class="quick-link-card">
+      <div class="quick-link-icon">🎵</div>
+      <div class="quick-link-title">About Us</div>
+      <div class="quick-link-desc">Learn about AMP Productions, our mission, and the team behind the music.</div>
+      <div class="quick-link-arrow">Learn More →</div>
+    </a>
+    <a href="events.html" class="quick-link-card">
+      <div class="quick-link-icon">🎟</div>
+      <div class="quick-link-title">Events</div>
+      <div class="quick-link-desc">Holiday Concert featuring Known by Name — December 12, 2026.</div>
+      <div class="quick-link-arrow">Get Tickets →</div>
+    </a>
+    <a href="founding-partners.html" class="quick-link-card">
+      <div class="quick-link-icon">🎼</div>
+      <div class="quick-link-title">Founding Members</div>
+      <div class="quick-link-desc">Become a Founding Member of AMP Productions — 2026 only.</div>
+      <div class="quick-link-arrow">Join Now →</div>
+    </a>
+    <a href="sponsors.html" class="quick-link-card">
+      <div class="quick-link-icon">🤝</div>
+      <div class="quick-link-title">Sponsorship</div>
+      <div class="quick-link-desc">Partner with us to support performing arts in Lebanon, Oregon.</div>
+      <div class="quick-link-arrow">View Tiers →</div>
+    </a>
+    <a href="contact.html" class="quick-link-card">
+      <div class="quick-link-icon">✉️</div>
+      <div class="quick-link-title">Contact Us</div>
+      <div class="quick-link-desc">Get in touch with our team — we'd love to hear from you.</div>
+      <div class="quick-link-arrow">Reach Out →</div>
+    </a>
+  </div>
+</div>
+
+<div class="counter-section">
+  <div class="counter-inner">
+    <div class="counter-label">🎵 Site Visitors</div>
+    <div class="counter-display">
+      <div class="counter-digit-wrap" id="counterDigits">
+        <div class="counter-digit">0</div><div class="counter-digit">0</div>
+        <div class="counter-digit">0</div><div class="counter-digit">0</div>
+        <div class="counter-digit">0</div><div class="counter-digit">0</div>
+      </div>
+    </div>
+    <div class="counter-since">Since 2026</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-eq">
+    <div class="footer-eq-bar"></div><div class="footer-eq-bar"></div>
+    <div class="footer-eq-bar"></div><div class="footer-eq-bar"></div>
+    <div class="footer-eq-bar"></div><div class="footer-eq-bar"></div>
+  </div>
+  <div class="footer-name">AMP Productions</div>
+  <div class="footer-tagline">Aid through Music and Philanthropy</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="events.html">Events</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a href="sponsors.html">Sponsors</a>
+    <a href="founding-partners.html">Founding Members</a>
+    <a href="board.html">Board</a>
+  </div>
+  <div class="footer-legal">© 2026 AMP Productions · 501(c)(3) Nonprofit · aidthroughmusic.org · All rights reserved.</div>
+</footer>
+<script>
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navMenu.classList.toggle('open');
+});
+function closeMenu() {
+  hamburger.classList.remove('open');
+  navMenu.classList.remove('open');
+}
+document.addEventListener('click', (e) => {
+  if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) closeMenu();
+});
+async function updateCounter() {
+  try {
+    const res = await fetch('https://api.counterapi.dev/v1/aidthroughmusic/visits/up');
+    const data = await res.json();
+    const count = String(data.count).padStart(6, '0');
+    document.querySelectorAll('#counterDigits .counter-digit').forEach((d,i) => { d.textContent = count[i] || '0'; });
+  } catch(e) {}
+}
+updateCounter();
+</script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
+</body>
+</html>
