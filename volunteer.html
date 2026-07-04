@@ -308,14 +308,30 @@ footer{background:#080808;border-top:1px solid rgba(212,160,23,0.15);padding:3re
             </select>
           </div>
           <div class="form-group">
-            <label>Availability — December 12, 2026</label>
+            <label>Section 1 — Event Day Availability (December 12, 2026)</label>
             <div class="checkbox-group">
               <label class="checkbox-item"><input type="checkbox" name="availability_matinee" value="Matinee (2:00 PM show)"/> Matinee Show (2:00 PM)</label>
               <label class="checkbox-item"><input type="checkbox" name="availability_evening" value="Evening (7:00 PM show)"/> Evening Show (7:00 PM)</label>
               <label class="checkbox-item"><input type="checkbox" name="availability_both" value="Both shows"/> Both Shows</label>
               <label class="checkbox-item"><input type="checkbox" name="availability_setup" value="Setup (before shows)"/> Setup / Pre-show</label>
-              <label class="checkbox-item"><input type="checkbox" name="availability_teardown" value="Teardown (after shows)"/> Teardown / Post-show</label>
+              <label class="checkbox-item"><input type="checkbox" name="availability_teardown" value="Teardown (after shows)"/> Teardown after Matinee</label>
+              <label class="checkbox-item"><input type="checkbox" name="availability_teardown_eve" value="Teardown after Evening Show"/> Teardown after Evening Show</label>
             </div>
+          </div>
+          <div class="form-group">
+            <label>Section 2 — Pre-Event Commitment</label>
+            <div style="background:rgba(212,160,23,0.06);border-left:3px solid rgba(212,160,23,0.4);padding:0.75rem 1rem;margin-bottom:0.75rem;font-size:0.8rem;color:var(--muted);line-height:1.6;">
+              ⚠️ Some roles such as <strong style="color:var(--white);">Stage Crew, Sound & Lighting Tech, and Hospitality</strong> may require attendance at rehearsals and setup days prior to the event. This could represent a longer time commitment than event day alone. Specific dates and schedules will be determined and communicated to volunteers at a later date. By selecting any option below you are indicating your willingness to commit to additional time beyond event day.
+            </div>
+            <div class="checkbox-group">
+              <label class="checkbox-item"><input type="checkbox" name="availability_stage_setup" value="Stage Setup (date TBD)"/> Stage Setup (date TBD)</label>
+              <label class="checkbox-item"><input type="checkbox" name="availability_tech_rehearsal" value="Technical Rehearsal / Sound Check (date TBD)"/> Technical Rehearsal / Sound Check (date TBD)</label>
+              <label class="checkbox-item"><input type="checkbox" name="availability_prep" value="Available for planning meetings or prep as needed"/> Available for planning meetings or prep as needed</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Dates I Am NOT Available (November–December 2026)</label>
+            <textarea name="unavailable_dates" placeholder="Please list any dates in November or December 2026 that you are not available (e.g. Nov 15, Dec 5-7, Dec 10). Leave blank if you have no conflicts."></textarea>
           </div>
           <div class="form-group">
             <label>Relevant Experience (Optional)</label>
@@ -400,7 +416,7 @@ async function submitVolunteerForm(formEl) {
   
   // Collect checkboxes manually
   const availability = [];
-  ['availability_matinee','availability_evening','availability_both','availability_setup','availability_teardown'].forEach(name => {
+  ['availability_matinee','availability_evening','availability_both','availability_setup','availability_teardown','availability_teardown_eve','availability_stage_setup','availability_tech_rehearsal','availability_prep'].forEach(name => {
     const cb = formEl.querySelector('[name="'+name+'"]');
     if(cb && cb.checked) availability.push(cb.value);
   });
@@ -416,6 +432,7 @@ async function submitVolunteerForm(formEl) {
     role: formData.get('role'),
     availability: availability.length ? availability.join(', ') : 'Not specified',
     experience: formData.get('experience') || 'None provided',
+    unavailable_dates: formData.get('unavailable_dates') || 'None listed',
     message: formData.get('message') || 'None'
   };
   
