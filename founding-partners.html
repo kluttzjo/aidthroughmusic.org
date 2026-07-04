@@ -75,6 +75,8 @@ h1.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,6rem)
 .highlight{color:var(--gold);font-style:normal;font-weight:700;}
 
 /* FOUNDING BADGE inline */
+.fp-badge-btn{text-decoration:none;cursor:pointer;transition:filter 0.2s;}
+.fp-badge-btn:hover{filter:brightness(1.2);}
 .fp-badge{display:inline-flex;align-items:center;gap:0.4rem;background:linear-gradient(135deg,#7a4e00,#c8860a,#fff8d0,#c8860a,#7a4e00);padding:4px 12px 4px 8px;border-radius:20px;box-shadow:0 2px 10px rgba(212,160,23,0.4);margin-left:0.5rem;vertical-align:middle;}
 .fp-badge-text{font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;font-weight:800;color:#1a0d00;}
 
@@ -170,10 +172,10 @@ footer{background:#080808;border-top:1px solid rgba(212,160,23,0.15);padding:3re
 <div class="nav-menu" id="navMenu">
   <ul>
     <li><a href="index.html" onclick="closeMenu()">Home</a></li>
-    <li><a href="index.html#about" onclick="closeMenu()">About</a></li>
-    <li><a href="index.html#events" onclick="closeMenu()">Events</a></li>
-    <li><a href="index.html#gallery" onclick="closeMenu()">Gallery</a></li>
-    <li><a href="index.html#contact" onclick="closeMenu()">Contact</a></li>
+    <li><a href="about.html" onclick="closeMenu()">About</a></li>
+    <li><a href="events.html" onclick="closeMenu()">Events</a></li>
+    <li><a href="gallery.html" onclick="closeMenu()">Gallery</a></li>
+    <li><a href="contact.html" onclick="closeMenu()">Contact</a></li>
     <li><a href="sponsors.html" onclick="closeMenu()">Sponsors</a></li>
     <li><a href="founding-partners.html" onclick="closeMenu()">Founding Members</a></li>
     <li><a href="board.html" onclick="closeMenu()">Board of Directors</a></li>
@@ -268,7 +270,7 @@ footer{background:#080808;border-top:1px solid rgba(212,160,23,0.15);padding:3re
     <!-- FOUNDING DONOR -->
     <div class="founding-tier tier-donor">
       <div class="tier-header">
-        <div class="tier-name">🥁 Founding Donor <span class="fp-badge"><span>🎵</span><span class="fp-badge-text">Founding Member</span></span></div>
+        <div class="tier-name">🥁 Founding Donor <a href="https://www.zeffy.com/en-US/donation-form/become-a-founding-member-for-life" target="_blank" class="fp-badge fp-badge-btn"><span>🎵</span><span class="fp-badge-text">Join Now</span></a></div>
         <div class="tier-amount">$25–$499</div>
       </div>
       <div class="tier-body">
@@ -285,7 +287,7 @@ footer{background:#080808;border-top:1px solid rgba(212,160,23,0.15);padding:3re
     <!-- FOUNDING SPONSOR -->
     <div class="founding-tier tier-sponsor">
       <div class="tier-header">
-        <div class="tier-name">🎶 Founding Sponsor <span class="fp-badge"><span>🎵</span><span class="fp-badge-text">Founding Member</span></span></div>
+        <div class="tier-name">🎶 Founding Sponsor <a href="https://www.zeffy.com/en-US/donation-form/become-a-founding-member-for-life" target="_blank" class="fp-badge fp-badge-btn"><span>🎵</span><span class="fp-badge-text">Join Now</span></a></div>
         <div class="tier-amount">$500–$999</div>
       </div>
       <div class="tier-body">
@@ -305,7 +307,7 @@ footer{background:#080808;border-top:1px solid rgba(212,160,23,0.15);padding:3re
     <!-- FOUNDING PARTNER -->
     <div class="founding-tier tier-partner">
       <div class="tier-header">
-        <div class="tier-name">🎵 Founding Partner <span class="fp-badge"><span>🎵</span><span class="fp-badge-text">Founding Member</span></span></div>
+        <div class="tier-name">🎵 Founding Partner <a href="https://www.zeffy.com/en-US/donation-form/become-a-founding-member-for-life" target="_blank" class="fp-badge fp-badge-btn"><span>🎵</span><span class="fp-badge-text">Join Now</span></a></div>
         <div class="tier-amount">$1,000–$2,499</div>
       </div>
       <div class="tier-body">
@@ -327,7 +329,7 @@ footer{background:#080808;border-top:1px solid rgba(212,160,23,0.15);padding:3re
     <!-- FOUNDING VISIONARY -->
     <div class="founding-tier tier-visionary">
       <div class="tier-header">
-        <div class="tier-name">🎼 Founding Visionary <span class="fp-badge"><span>🎵</span><span class="fp-badge-text">Founding Member</span></span></div>
+        <div class="tier-name">🎼 Founding Visionary <a href="https://www.zeffy.com/en-US/donation-form/become-a-founding-member-for-life" target="_blank" class="fp-badge fp-badge-btn"><span>🎵</span><span class="fp-badge-text">Join Now</span></a></div>
         <div class="tier-amount">$2,500+</div>
       </div>
       <div class="tier-body">
@@ -420,12 +422,12 @@ footer{background:#080808;border-top:1px solid rgba(212,160,23,0.15);padding:3re
   <div class="footer-tagline">Aid through Music and Philanthropy</div>
   <div class="footer-links">
     <a href="index.html">Home</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#events">Events</a>
+    <a href="about.html">About</a>
+    <a href="events.html">Events</a>
     <a href="founding-partners.html">Founding Members</a>
     <a href="sponsors.html">Sponsors</a>
     <a href="board.html">Board</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="contact.html">Contact</a>
   </div>
   <div class="footer-legal">© 2026 AMP Productions · 501(c)(3) Nonprofit · aidthroughmusic.org · All rights reserved.</div>
 </footer>
