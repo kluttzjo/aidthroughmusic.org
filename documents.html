@@ -269,7 +269,6 @@ function checkPassword() {
   if (input === 'GetAmped!') {
     document.getElementById('password-gate').style.display = 'none';
     document.getElementById('page-content').style.display = 'block';
-    sessionStorage.setItem('amp_docs_auth', '1');
   } else {
     error.textContent = 'Incorrect password. Please try again.';
     document.getElementById('gateInput').value = '';
@@ -277,11 +276,6 @@ function checkPassword() {
   }
 }
 
-// Remember auth for the session so they don't have to re-enter on refresh
-if (sessionStorage.getItem('amp_docs_auth') === '1') {
-  document.getElementById('password-gate').style.display = 'none';
-  document.getElementById('page-content').style.display = 'block';
-}
 
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
