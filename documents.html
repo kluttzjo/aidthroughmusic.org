@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+<title>Documents – AMP Productions</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0d0d0d;--charcoal:#1a1a1a;--gold:#d4a017;--gold-light:#f0c040;
+  --white:#f5f0e8;--muted:#a89f8c;--red:#e63b2e;--orange:#f07020;
+  --yellow:#f0c040;--green:#3db54a;--blue:#1e6fbf;--purple:#7b3fbf;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Montserrat',sans-serif;overflow-x:hidden;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(212,160,23,0.25);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;}
+.nav-logo{text-decoration:none;display:flex;align-items:center;}
+.nav-logo img{height:44px;width:auto;}
+.nav-cta{background:var(--gold);color:var(--black);padding:8px 20px;border-radius:2px;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background 0.2s;flex-shrink:0;}
+.nav-cta:hover{background:var(--gold-light);}
+.hamburger{background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;gap:5px;flex-shrink:0;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--gold);border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-menu{position:fixed;top:64px;left:0;right:0;background:rgba(10,10,10,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,160,23,0.25);padding:0;max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.35s ease;z-index:97;}
+.nav-menu.open{max-height:500px;padding:1rem 0;}
+.nav-menu ul{list-style:none;display:flex;flex-direction:column;}
+.nav-menu ul li a{display:block;padding:0.9rem 2rem;font-size:0.82rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid rgba(212,160,23,0.08);transition:color 0.2s,background 0.2s;}
+.nav-menu ul li a:hover{color:var(--gold);background:rgba(212,160,23,0.05);}
+
+/* PASSWORD GATE */
+#password-gate{position:fixed;inset:0;background:var(--black);z-index:200;display:flex;align-items:center;justify-content:center;padding:2rem;}
+.gate-box{max-width:440px;width:100%;text-align:center;}
+.gate-logo{width:120px;margin:0 auto 2rem;display:block;}
+.gate-label{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:0.5rem;}
+.gate-title{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:2px;color:var(--white);margin-bottom:0.5rem;}
+.gate-sub{font-family:'Lora',serif;font-style:italic;font-size:0.95rem;color:var(--muted);margin-bottom:2rem;line-height:1.6;}
+.gate-rule{width:40px;height:3px;background:linear-gradient(to right,var(--red),var(--orange),var(--yellow),var(--green),var(--blue),var(--purple));margin:0 auto 2rem;border-radius:2px;}
+.gate-input-wrap{display:flex;gap:0.75rem;margin-bottom:1rem;}
+.gate-input{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(212,160,23,0.3);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:1rem;outline:none;border-radius:2px;transition:border-color 0.2s;}
+.gate-input:focus{border-color:var(--gold);}
+.gate-btn{background:var(--gold);color:var(--black);padding:12px 24px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;transition:background 0.2s;white-space:nowrap;}
+.gate-btn:hover{background:var(--gold-light);}
+.gate-error{color:var(--red);font-size:0.8rem;font-weight:600;letter-spacing:1px;min-height:1.2rem;transition:opacity 0.2s;}
+.gate-note{margin-top:1.5rem;font-size:0.72rem;color:rgba(168,159,140,0.4);letter-spacing:1px;}
+
+/* PAGE CONTENT (hidden until authenticated) */
+#page-content{display:none;}
+
+/* HERO */
+.page-hero{padding:10rem 2rem 5rem;text-align:center;background:radial-gradient(ellipse at 50% 60%, #1a1200 0%, #0d0d0d 70%);position:relative;}
+.page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--red),var(--orange),var(--yellow),var(--green),var(--blue),var(--purple));}
+.page-label{font-size:0.8rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;font-weight:600;}
+h1.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,6rem);letter-spacing:3px;color:var(--white);line-height:1;}
+.page-tagline{font-family:'Lora',serif;font-style:italic;font-size:1.15rem;color:var(--muted);margin:1.2rem auto 0;max-width:600px;line-height:1.7;}
+
+/* DOCS SECTION */
+.docs-section{padding:5rem 2rem;background:var(--charcoal);}
+.docs-inner{max-width:900px;margin:0 auto;}
+.section-label{font-size:0.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;font-weight:600;}
+h2.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);letter-spacing:2px;color:var(--white);line-height:1;margin-bottom:0;}
+.rainbow-rule{width:60px;height:3px;background:linear-gradient(to right,var(--red),var(--orange),var(--yellow),var(--green),var(--blue),var(--purple));margin:1rem 0 2rem;border-radius:2px;}
+
+.doc-group{margin-bottom:3rem;}
+.doc-group-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:var(--gold);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(212,160,23,0.2);}
+
+.doc-card{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.2rem 1.5rem;border:1px solid rgba(212,160,23,0.15);margin-bottom:0.75rem;transition:border-color 0.2s;background:rgba(0,0,0,0.2);}
+.doc-card:hover{border-color:rgba(212,160,23,0.4);background:rgba(212,160,23,0.03);}
+.doc-info{display:flex;align-items:center;gap:1rem;flex:1;min-width:0;}
+.doc-icon{font-size:1.8rem;flex-shrink:0;}
+.doc-text{min-width:0;}
+.doc-name{font-weight:700;font-size:0.9rem;color:var(--white);margin-bottom:0.2rem;}
+.doc-desc{font-size:0.78rem;color:var(--muted);line-height:1.4;}
+.doc-download{background:var(--gold);color:var(--black);padding:9px 20px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background 0.2s;white-space:nowrap;flex-shrink:0;}
+.doc-download:hover{background:var(--gold-light);}
+
+@media(max-width:600px){
+  nav{padding:0 1.2rem;}
+  .doc-card{flex-direction:column;align-items:flex-start;}
+  .doc-download{align-self:stretch;text-align:center;}
+  .gate-input-wrap{flex-direction:column;}
+}
+
+footer{background:#080808;border-top:1px solid rgba(212,160,23,0.15);padding:3rem 2rem;text-align:center;}
+.footer-eq{display:flex;gap:3px;align-items:flex-end;justify-content:center;height:20px;margin-bottom:1.5rem;}
+.footer-eq-bar{width:6px;border-radius:1px 1px 0 0;}
+.footer-eq-bar:nth-child(1){background:var(--red);height:10px;}
+.footer-eq-bar:nth-child(2){background:var(--orange);height:18px;}
+.footer-eq-bar:nth-child(3){background:var(--yellow);height:14px;}
+.footer-eq-bar:nth-child(4){background:var(--green);height:20px;}
+.footer-eq-bar:nth-child(5){background:var(--blue);height:12px;}
+.footer-eq-bar:nth-child(6){background:var(--purple);height:16px;}
+.footer-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:var(--gold);margin-bottom:0.25rem;}
+.footer-tagline{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;}
+.footer-links{display:flex;gap:2rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap;}
+.footer-links a{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-legal{font-size:0.72rem;color:#4a4540;}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="password-gate">
+  <div class="gate-box">
+    <img src="AMP_logo.png" alt="AMP Productions" class="gate-logo"/>
+    <div class="gate-label">Restricted Access</div>
+    <div class="gate-title">Document Library</div>
+    <div class="gate-rule"></div>
+    <div class="gate-sub">This page contains confidential organizational documents for AMP Productions. Please enter the access password to continue.</div>
+    <div class="gate-input-wrap">
+      <input type="password" id="gateInput" class="gate-input" placeholder="Enter password..." onkeydown="if(event.key==='Enter')checkPassword()"/>
+      <button class="gate-btn" onclick="checkPassword()">Enter</button>
+    </div>
+    <div class="gate-error" id="gateError">&nbsp;</div>
+    <div class="gate-note">Contact info@aidthroughmusic.org if you need access.</div>
+  </div>
+</div>
+
+<!-- PAGE CONTENT -->
+<div id="page-content">
+
+<nav>
+  <a class="nav-logo" href="index.html"><img src="AMP_logo.png" alt="AMP Productions"/></a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="nav-cta" href="founding-partners.html">Become a Founding Member</a>
+</nav>
+<div class="nav-menu" id="navMenu">
+  <ul>
+    <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+    <li><a href="about.html" onclick="closeMenu()">About</a></li>
+    <li><a href="events.html" onclick="closeMenu()">Events</a></li>
+    <li><a href="gallery.html" onclick="closeMenu()">Gallery</a></li>
+    <li><a href="contact.html" onclick="closeMenu()">Contact</a></li>
+    <li><a href="sponsors.html" onclick="closeMenu()">Sponsors</a></li>
+    <li><a href="founding-partners.html" onclick="closeMenu()">Founding Members</a></li>
+    <li><a href="volunteer.html" onclick="closeMenu()">Volunteer</a></li>
+    <li><a href="board.html" onclick="closeMenu()">Board of Directors</a></li>
+  </ul>
+</div>
+
+<div class="page-hero">
+  <div class="page-label">Internal Resources</div>
+  <h1 class="page-title">Document Library</h1>
+  <p class="page-tagline">Sponsorship materials, tax documents, and organizational records for AMP Productions.</p>
+</div>
+
+<div class="docs-section">
+  <div class="docs-inner">
+
+    <!-- SPONSOR PACKAGES -->
+    <div class="doc-group">
+      <div class="section-label">For Donors & Sponsors</div>
+      <h2 class="section-title">Sponsorship Materials</h2>
+      <div class="rainbow-rule"></div>
+
+      <div class="doc-card">
+        <div class="doc-info">
+          <div class="doc-icon">📦</div>
+          <div class="doc-text">
+            <div class="doc-name">Complete Sponsor Package</div>
+            <div class="doc-desc">All-in-one PDF: Sponsorship Info Packet, W-9, 501(c)(3) Letter, and EIN Confirmation — everything a sponsor needs in one document.</div>
+          </div>
+        </div>
+        <a href="AMP_Productions_Complete_Sponsor_Package.pdf" download class="doc-download">⬇ Download</a>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-info">
+          <div class="doc-icon">📋</div>
+          <div class="doc-text">
+            <div class="doc-name">Sponsorship Information Packet</div>
+            <div class="doc-desc">Detailed overview of AMP Productions, our mission, inaugural event, founding member tiers, and ongoing sponsorship opportunities.</div>
+          </div>
+        </div>
+        <a href="AMP_Productions_Sponsorship_Information_Packet.pdf" download class="doc-download">⬇ Download</a>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-info">
+          <div class="doc-icon">🎨</div>
+          <div class="doc-text">
+            <div class="doc-name">Sponsor Portfolio</div>
+            <div class="doc-desc">Visual 6-page portfolio showcasing AMP Productions' mission, inaugural concert, sponsorship tiers, and board of directors.</div>
+          </div>
+        </div>
+        <a href="AMP_Productions_Sponsor_Portfolio.pdf" download class="doc-download">⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- TAX & LEGAL -->
+    <div class="doc-group">
+      <div class="section-label">Tax & Legal</div>
+      <h2 class="section-title">Nonprofit & Tax Documents</h2>
+      <div class="rainbow-rule"></div>
+
+      <div class="doc-card">
+        <div class="doc-info">
+          <div class="doc-icon">📝</div>
+          <div class="doc-text">
+            <div class="doc-name">W-9 — Request for Taxpayer Identification</div>
+            <div class="doc-desc">Completed W-9 for AMP Productions. EIN: 41-3601983. Note: requires John Kluttz's signature before sending to sponsors.</div>
+          </div>
+        </div>
+        <a href="AMP_Productions_W9_Final.pdf" download class="doc-download">⬇ Download</a>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-info">
+          <div class="doc-icon">🏛️</div>
+          <div class="doc-text">
+            <div class="doc-name">501(c)(3) Determination Letter</div>
+            <div class="doc-desc">IRS Letter 947, dated March 23, 2026. Confirms AMP Productions' tax-exempt status effective January 3, 2026. Public charity status: 509(a)(2).</div>
+          </div>
+        </div>
+        <a href="AMP_501c3_Determination_Letter.pdf" download class="doc-download">⬇ Download</a>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-info">
+          <div class="doc-icon">🔢</div>
+          <div class="doc-text">
+            <div class="doc-name">EIN Confirmation Letter (LTR 147C)</div>
+            <div class="doc-desc">IRS confirmation of Employer Identification Number 41-3601983 for AMP Productions, issued January 14, 2026.</div>
+          </div>
+        </div>
+        <a href="AMP_EIN_Confirmation_Letter.pdf" download class="doc-download">⬇ Download</a>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-eq">
+    <div class="footer-eq-bar"></div><div class="footer-eq-bar"></div>
+    <div class="footer-eq-bar"></div><div class="footer-eq-bar"></div>
+    <div class="footer-eq-bar"></div><div class="footer-eq-bar"></div>
+  </div>
+  <div class="footer-name">AMP Productions</div>
+  <div class="footer-tagline">Aid through Music and Philanthropy</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="events.html">Events</a>
+    <a href="sponsors.html">Sponsors</a>
+    <a href="founding-partners.html">Founding Members</a>
+    <a href="volunteer.html">Volunteer</a>
+    <a href="board.html">Board</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-legal">© 2026 AMP Productions · 501(c)(3) Nonprofit · aidthroughmusic.org · All rights reserved.</div>
+</footer>
+
+</div><!-- end page-content -->
+
+<script>
+function checkPassword() {
+  const input = document.getElementById('gateInput').value;
+  const error = document.getElementById('gateError');
+  if (input === 'GetAmped!') {
+    document.getElementById('password-gate').style.display = 'none';
+    document.getElementById('page-content').style.display = 'block';
+    sessionStorage.setItem('amp_docs_auth', '1');
+  } else {
+    error.textContent = 'Incorrect password. Please try again.';
+    document.getElementById('gateInput').value = '';
+    document.getElementById('gateInput').focus();
+  }
+}
+
+// Remember auth for the session so they don't have to re-enter on refresh
+if (sessionStorage.getItem('amp_docs_auth') === '1') {
+  document.getElementById('password-gate').style.display = 'none';
+  document.getElementById('page-content').style.display = 'block';
+}
+
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+}
+function closeMenu() {
+  if (hamburger) hamburger.classList.remove('open');
+  if (navMenu) navMenu.classList.remove('open');
+}
+document.addEventListener('click', (e) => {
+  if (hamburger && navMenu && !hamburger.contains(e.target) && !navMenu.contains(e.target)) closeMenu();
+});
+</script>
+</body>
+</html>
